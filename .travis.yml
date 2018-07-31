@@ -1,9 +1,8 @@
 language: java
 sudo: false
 jdk:
-  - oraclejdk8
-  - oraclejdk9
+  - oraclejdk11
 install:
- ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
-./mvnw test -B
+  - mvn test -B
