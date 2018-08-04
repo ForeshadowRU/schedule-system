@@ -49,7 +49,15 @@ public class TeacherDao implements ITeacherDao {
 
     @Override
     public void update(UUID id, Teacher teacher) {
-
+        sql = "update teachers " +
+                "set firstname = ?, secondname = ?, patronymic = ? " +
+                "where id = ?";
+        template.update(sql, preparedStatement -> {
+            preparedStatement.setString(1, teacher.getFirstName());
+            preparedStatement.setString(2, teacher.getSecondName());
+            preparedStatement.setString(3, teacher.getPatronymic());
+            preparedStatement.setString(4, id.toString());
+        });
     }
 
     @Override
