@@ -4,7 +4,6 @@ public class Teacher {
     private String firstName;
     private String secondName;
     private String patronymic;
-    private int hours;
 
     public Teacher() {
     }
@@ -31,13 +30,5 @@ public class Teacher {
 
     public void setPatronymic(String patronymic) {
         this.patronymic = patronymic;
-    }
-
-    public int getHours() {
-        return hours;
-    }
-
-    public void setHours(int hours) {
-        this.hours = hours;
     }
 }
