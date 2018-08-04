@@ -1,14 +1,12 @@
 package edu.omsu.dao;
 
 import edu.omsu.dao.interfaces.ITeacherDao;
+import edu.omsu.mappers.TeacherMapper;
 import edu.omsu.model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,26 +25,26 @@ public class TeacherDao implements ITeacherDao {
     @Override
     public List<Teacher> get() {
         sql = "SELECT * FROM teachers";
-        return template.query(sql, new RowMapper<Teacher>() {
-            @Override
-            public Teacher mapRow(ResultSet resultSet, int i) throws SQLException {
-                Teacher teacher = new Teacher();
-                teacher.setFirstName(resultSet.getString("firstname"));
-                teacher.setSecondName(resultSet.getString("secondname"));
-                teacher.setPatronymic(resultSet.getString("patronymic"));
-                return teacher;
-            }
-        });
+        return template.query(sql, new TeacherMapper());
     }
 
     @Override
     public Teacher get(UUID id) {
-        return null;
+        sql = "SELECT * FROM teachers where id = ?";
+        List<Teacher> query = template.query(sql, new TeacherMapper(), id.toString());
+        return (query.isEmpty()) ? null : query.get(0);
     }
 
     @Override
     public void save(Teacher teacher) {
-
+        sql = "insert into teachers (firstname, secondname, patronymic, id)\n" +
+                "values (?, ?, ?, ?)";
+        template.update(sql, preparedStatement -> {
+            preparedStatement.setString(1, teacher.getFirstName());
+            preparedStatement.setString(2, teacher.getSecondName());
+            preparedStatement.setString(3, teacher.getPatronymic());
+            preparedStatement.setString(4, UUID.randomUUID().toString());
+        });
     }
 
     @Override
