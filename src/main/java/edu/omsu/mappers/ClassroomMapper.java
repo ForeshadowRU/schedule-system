@@ -10,7 +10,7 @@ public class ClassroomMapper implements RowMapper<Classroom> {
     @Override
     public Classroom mapRow(ResultSet resultSet, int i) throws SQLException {
         Classroom classroom = new Classroom();
-        classroom.setNumberClass(resultSet.getInt("class_number"));
+        classroom.setNumberClass(resultSet.getString("class_number"));
         classroom.setCapacity(resultSet.getInt("capacity"));
         classroom.setParameter(resultSet.getInt("parameter"));
         return classroom;

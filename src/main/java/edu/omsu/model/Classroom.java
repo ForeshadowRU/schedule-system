@@ -1,18 +1,18 @@
 package edu.omsu.model;
 
 public class Classroom {
-    private int numberClass;
+    private String numberClass;
     private int capacity;
     private int parameter;
 
     public Classroom() {
     }
 
-    public int getNumberClass() {
+    public String getNumberClass() {
         return numberClass;
     }
 
-    public void setNumberClass(int numberClass) {
+    public void setNumberClass(String numberClass) {
         this.numberClass = numberClass;
     }
 
