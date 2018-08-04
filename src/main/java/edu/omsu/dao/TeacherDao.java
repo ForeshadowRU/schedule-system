@@ -62,6 +62,9 @@ public class TeacherDao implements ITeacherDao {
 
     @Override
     public void delete(UUID id) {
-
+        sql = "delete from teachers where id = ?";
+        template.update(sql, preparedStatement -> {
+            preparedStatement.setString(1, id.toString());
+        });
     }
 }
