@@ -3,7 +3,7 @@ package edu.omsu.model;
 public class Classroom {
     private int numberClass;
     private int capacity;
-    private int parametr;
+    private int parameter;
 
     public Classroom() {
     }
@@ -24,11 +24,11 @@ public class Classroom {
         this.capacity = capacity;
     }
 
-    public int getParametr() {
-        return parametr;
+    public int getParameter() {
+        return parameter;
     }
 
-    public void setParametr(int parametr) {
-        this.parametr = parametr;
+    public void setParameter(int parameter) {
+        this.parameter = parameter;
     }
 }
