@@ -26,27 +26,32 @@ public class GroupMapper implements RowMapper<Group> {
         group.setFullTime(resultSet.getBoolean("full_time"));
         group.setQuantityPeople(resultSet.getInt("quantity_people"));
 
-        String sql0 = "select map.subject\n" +
-                "from map_group_subject map\n" +
-                "  join n_groups g\n" +
-                "    on g.code = map.code and g.number = map.number and g.full_time = map.full_time\n" +
-                "where g.code = ? and g.number = ? and g.full_time = ?";
+        String sql =
+                "select map.subject, s.name, s.hours, s.difficulty\n" +
+                        "from `schedule-system`.map_group_subject map\n" +
+                        "  join `schedule-system`.n_groups g\n" +
+                        "   join `schedule-system`.subjects s\n" +
+                        "    on s.id = map.subject and g.code = map.code and " +
+                        "       g.number = map.number and g.full_time = map.full_time\n" +
+                        "where g.code = ? and g.number = ? and g.full_time = ?";
 
-        template.query(sql0, preparedStatement -> {
+        Set<Subject> query = template.query(sql, preparedStatement -> {
             preparedStatement.setString(1, group.getCode());
             preparedStatement.setInt(2, group.getNumber());
             preparedStatement.setBoolean(3, group.isFullTime());
         }, result -> {
             Set<Subject> subjects = new HashSet<>();
-            Subject subject = new Subject();
-            subject.setName(result.getString("name"));
-            subject.setHours(result.getInt("hours"));
-            subject.setDifficulty(result.getInt("difficulty"));
+            while (result.next()) {
+                Subject subject = new Subject();
+                subject.setName(result.getString("name"));
+                subject.setHours(result.getInt("hours"));
+                subject.setDifficulty(result.getInt("difficulty"));
 
-            subjects.add(subject);
+                subjects.add(subject);
+            }
             return subjects;
         });
-
+        group.setSubjects(query);
         return group;
     }
 }

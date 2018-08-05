@@ -1,5 +1,7 @@
 package edu.omsu.model;
 
+import java.util.Objects;
+
 public class Subject {
     private String name;
     private int hours;
@@ -30,5 +32,30 @@ public class Subject {
 
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
+    }
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "name='" + name + '\'' +
+                ", hours=" + hours +
+                ", difficulty=" + difficulty +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Subject subject = (Subject) o;
+        return hours == subject.hours &&
+                difficulty == subject.difficulty &&
+                Objects.equals(name, subject.name);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name, hours, difficulty);
     }
 }

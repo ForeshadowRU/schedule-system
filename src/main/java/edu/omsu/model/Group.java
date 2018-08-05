@@ -1,5 +1,6 @@
 package edu.omsu.model;
 
+import java.util.Objects;
 import java.util.Set;
 
 public class Group {
@@ -50,5 +51,34 @@ public class Group {
 
     public void setSubjects(Set<Subject> subjects) {
         this.subjects = subjects;
+    }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "code='" + code + '\'' +
+                ", number=" + number +
+                ", fullTime=" + fullTime +
+                ", quantityPeople=" + quantityPeople +
+                ", subjects=" + subjects +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Group group = (Group) o;
+        return number == group.number &&
+                fullTime == group.fullTime &&
+                quantityPeople == group.quantityPeople &&
+                Objects.equals(code, group.code) &&
+                Objects.equals(subjects, group.subjects);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(code, number, fullTime, quantityPeople, subjects);
     }
 }
