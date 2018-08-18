@@ -17,7 +17,7 @@ public class GroupMapperTest {
     private JdbcTemplate template;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUrl("jdbc:mysql://omsu-projects.mysql.database.azure.com:3306/recruiting-server?useSSL=true&requireSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC");
         dataSource.setUsername("jesper@omsu-projects");
@@ -29,9 +29,6 @@ public class GroupMapperTest {
 
     @Test
     public void mapRow() {
-        /*String sql = "SELECT *" +
-                "from `schedule-system`.n_groups g" +
-                "where g.code = 'МПБ' and g.number = '602' and g.full_time = '1'";*/
         String sql = "SELECT * from `schedule-system`.n_groups g where g.code = 'МПБ' and g.number = '602' and g.full_time = '1'";
         List<Group> query = template.query(sql, new GroupMapper(template));
         Group group = query.get(0);
