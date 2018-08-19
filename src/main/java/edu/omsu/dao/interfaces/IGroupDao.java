@@ -7,8 +7,8 @@ import java.util.UUID;
 
 public interface IGroupDao {
     List<Group> get();
-    Group get(UUID id);
+    Group get(String code, int number, boolean full_time);
     void save(Group group);
-    void update(UUID id, Group group);
-    void delete(UUID id);
+    void update(String code, int number, boolean full_time, Group group);
+    void delete(String code, int number, boolean full_time);
 }
