@@ -25,20 +25,20 @@ public class TeacherDao implements ITeacherDao {
 
     @Override
     public List<Teacher> get() {
-        sql = "SELECT * FROM teachers";
+        sql = "SELECT * FROM `schedule-system`.teachers";
         return template.query(sql, new TeacherMapper());
     }
 
     @Override
     public Teacher get(UUID id) {
-        sql = "SELECT * FROM teachers where id = ?";
+        sql = "SELECT * FROM `schedule-system`.teachers where id = ?";
         List<Teacher> query = template.query(sql, new TeacherMapper(), id.toString());
         return (query.isEmpty()) ? null : query.get(0);
     }
 
     @Override
     public void save(Teacher teacher) {
-        sql = "insert into teachers (firstname, secondname, patronymic, id)\n" +
+        sql = "insert into `schedule-system`.teachers (firstname, secondname, patronymic, id)\n" +
                 "values (?, ?, ?, ?)";
         template.update(sql, preparedStatement -> {
             preparedStatement.setString(1, teacher.getFirstName());
@@ -50,7 +50,7 @@ public class TeacherDao implements ITeacherDao {
 
     @Override
     public void update(UUID id, Teacher teacher) {
-        sql = "update teachers " +
+        sql = "update `schedule-system`.teachers " +
                 "set firstname = ?, secondname = ?, patronymic = ? " +
                 "where id = ?";
         template.update(sql, preparedStatement -> {
@@ -63,7 +63,7 @@ public class TeacherDao implements ITeacherDao {
 
     @Override
     public void delete(UUID id) {
-        sql = "delete from teachers where id = ?";
+        sql = "delete from `schedule-system`.teachers where id = ?";
         template.update(sql, preparedStatement -> {
             preparedStatement.setString(1, id.toString());
         });
